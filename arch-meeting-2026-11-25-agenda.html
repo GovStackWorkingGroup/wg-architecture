@@ -77,13 +77,13 @@ td.time { font-family: var(--mono); font-variant-numeric: tabular-nums; white-sp
 <main>
   <header>
     <p class="eyebrow">GovStack Architecture Working Group · Specification Framework</p>
-    <h1>Agenda: three proposals for how Building Block specifications are written</h1>
+    <h1>Agenda: a bb-analytics review, and three proposals for how Building Block specifications are written</h1>
     <div class="when">
       <span><strong>Wednesday 25 November 2026</strong></span>
       <span><strong>14:00–15:00 CET</strong></span>
       <span>Join: <a href="https://us06web.zoom.us/j/87356264625?pwd=Tcy9FK0KxT18mhRxHbCPb4Nptl2XzF.1" target="_blank" rel="noopener noreferrer">Zoom Link</a></span>
     </div>
-    <p class="lede">Three open pull requests on the Specification Framework propose changes to how a specification is organised and how its requirements are classified. Each one comes with an ADR in the <code>proposed</code> state. The meeting goes through what each changes and settles the open questions, so the ADRs can go to the Architecture Committee. Anyone can join, and anyone can comment on the pull requests before or after the meeting.</p>
+    <p class="lede">The meeting opens with a review of bb-analytics applying the Kazakhstan implementation. Then three open pull requests on the Specification Framework propose changes to how a specification is organised and how its requirements are classified. Each one comes with an ADR in the <code>proposed</code> state. The meeting goes through what each changes and settles the open questions, so the ADRs can go to the Architecture Committee. Anyone can join, and anyone can comment on the pull requests before or after the meeting.</p>
   </header>
 
   <section aria-labelledby="agenda">
@@ -93,8 +93,9 @@ td.time { font-family: var(--mono); font-variant-numeric: tabular-nums; white-sp
         <thead><tr><th>Time</th><th>Item</th></tr></thead>
         <tbody>
           <tr><td class="time">14:00</td><td>Welcome, and how the three proposals fit together</td></tr>
-          <tr><td class="time">14:05</td><td><strong>Conformance profiles</strong>, PR #12, ARCH-ADR-7</td></tr>
-          <tr><td class="time">14:25</td><td><strong>Options and conditional requirements</strong>, PR #2, ARCH-ADR-6</td></tr>
+          <tr><td class="time">14:05</td><td><strong>Review of bb-analytics applying the Kazakhstan implementation</strong>, PSRAMKUMAR</td></tr>
+          <tr><td class="time">14:15</td><td><strong>Conformance profiles: remove the <code>requirements/</code> folder and organise semantically</strong>, PR #12, ARCH-ADR-7</td></tr>
+          <tr><td class="time">14:30</td><td><strong>Bringing back <code>optional</code> requirements and adding conditionality</strong>, PR #2, ARCH-ADR-6</td></tr>
           <tr><td class="time">14:45</td><td><strong>Removing the <code>observability</code> classifier</strong>, PR #13, ARCH-ADR-8</td></tr>
           <tr><td class="time">14:55</td><td>Merge order, and next steps towards the Architecture Committee</td></tr>
         </tbody>
@@ -108,12 +109,19 @@ td.time { font-family: var(--mono); font-variant-numeric: tabular-nums; white-sp
 
     <article class="pr">
       <div class="pr-head">
-        <h3>1. Conformance profiles: remove `requirements/` folder; organize semantically.</h3>
+        <h3>1. Review of bb-analytics applying the Kazakhstan implementation</h3>
+      </div>
+      <p class="pr-meta">Presented by PSRAMKUMAR</p>
+    </article>
+
+    <article class="pr">
+      <div class="pr-head">
+        <h3>2. Conformance profiles: remove the <code>requirements/</code> folder and organise semantically</h3>
         <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/12">PR #12</a>
       </div>
       <p class="pr-meta">ARCH-ADR-7 · branch fix/conformance_profiles_folder_re-structuring</p>
       <ul>
-        <li>A specification's functionalities are grouped into <strong>conformance profiles</strong>: one core, which every conformant software solution meets, and extenchannel-namesions a solution may claim on top of it.</li>
+        <li>A specification's functionalities are grouped into <strong>conformance profiles</strong>: one core, which every conformant software solution meets, and extensions a solution may claim on top of it.</li>
         <li><code>requirements/</code> becomes <code>conformance-profiles/</code>, with one folder per profile, holding an <code>introduction.md</code> and a <code>functionalities/</code> folder. The folder name is the profile id.</li>
         <li>Each profile is declared in the front matter of its <code>introduction.md</code>. <code>metadata.yml</code> no longer lists extensions, and functionality files no longer carry <code>conformance</code> or <code>extension</code>.</li>
         <li>The Technical Overview gets shorter: one table of profiles, example conformance claims, and how profiles divide the capabilities. Functionalities, actors and interfaces move to each profile's introduction.</li>
@@ -129,7 +137,7 @@ td.time { font-family: var(--mono); font-variant-numeric: tabular-nums; white-sp
 
     <article class="pr">
       <div class="pr-head">
-        <h3>2. Bringing back <code>optional</code> requirements and add conditionality</h3>
+        <h3>3. Bringing back <code>optional</code> requirements and adding conditionality</h3>
         <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/2">PR #2</a>
       </div>
       <p class="pr-meta">ARCH-ADR-6 · branch feat/requirement_optionality</p>
@@ -148,7 +156,7 @@ td.time { font-family: var(--mono); font-variant-numeric: tabular-nums; white-sp
 
     <article class="pr">
       <div class="pr-head">
-        <h3>3. Removing the <code>observability</code> classifier</h3>
+        <h3>4. Removing the <code>observability</code> classifier</h3>
         <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/13">PR #13</a>
       </div>
       <p class="pr-meta">ARCH-ADR-8 · branch feat/remove_observability_classifier</p>
