@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Architecture Meeting, 25 November</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #1b2430;
+  --muted: #5a6573;
+  --line: #d9dee5;
+  --accent: #1f5f8b;
+  --accent-soft: #e3eef6;
+  --flag: #8a5a00;
+  --flag-soft: #fbf1dc;
+  --sans: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161c; --surface: #1a2029; --ink: #e4e9ef; --muted: #9aa6b4; --line: #2c3542;
+    --accent: #7db7e0; --accent-soft: #1d3141; --flag: #e8b860; --flag-soft: #33290f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161c; --surface: #1a2029; --ink: #e4e9ef; --muted: #9aa6b4; --line: #2c3542;
+  --accent: #7db7e0; --accent-soft: #1d3141; --flag: #e8b860; --flag-soft: #33290f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55;
+  padding: 2.5rem 16px 3rem;
+}
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+main { max-width: 760px; margin: 0 auto; display: grid; gap: 2rem; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.25; margin: 0; }
+h1 { font-size: 1.9rem; font-weight: 600; }
+h2 { font-size: 1.2rem; font-weight: 600; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: 0.88em; background: var(--accent-soft); padding: 0.05em 0.35em; border-radius: 3px; overflow-wrap: anywhere; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+header { display: grid; gap: 0.9rem; }
+.when { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-size: 1.02rem; }
+.when strong { font-weight: 600; }
+.lede { color: var(--muted); max-width: 65ch; }
+section { display: grid; gap: 0.9rem; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 500; color: var(--muted); font-size: 0.85rem; }
+td.time { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--muted); }
+.pr { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1.2rem 1.3rem; display: grid; gap: 0.75rem; min-width: 0; }
+.pr-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.3rem 1rem; }
+.pr-meta { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); overflow-wrap: anywhere; }
+.pr ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.3rem; }
+.label { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.note { border-left: 3px solid var(--flag); padding: 0.4rem 0 0.4rem 0.8rem; font-size: 0.95rem; }
+.join { display: grid; gap: 0.6rem; }For the complete documentation index, see llms.txt. Markdown versions of documentation pages are available by appending .md to page URLs; this page is available as Markdown.
+.join ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+@media print {
+  body { background: #fff; padding: 0; }
+  .pr { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">GovStack Architecture Working Group · Specification Framework</p>
+    <h1>Agenda: three proposals for how Building Block specifications are written</h1>
+    <div class="when">
+      <span><strong>Wednesday 25 November 2026</strong></span>
+      <span><strong>14:00–15:00 CET</strong></span>
+      <span>Join: <a href="https://us06web.zoom.us/j/87356264625?pwd=Tcy9FK0KxT18mhRxHbCPb4Nptl2XzF.1" target="_blank" rel="noopener noreferrer">Zoom Link</a></span>
+    </div>
+    <p class="lede">Three open pull requests on the Specification Framework propose changes to how a specification is organised and how its requirements are classified. Each one comes with an ADR in the <code>proposed</code> state. The meeting goes through what each changes and settles the open questions, so the ADRs can go to the Architecture Committee. Anyone can join, and anyone can comment on the pull requests before or after the meeting.</p>
+  </header>
+
+  <section aria-labelledby="agenda">
+    <h2 id="agenda">Agenda</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Time</th><th>Item</th></tr></thead>
+        <tbody>
+          <tr><td class="time">14:00</td><td>Welcome, and how the three proposals fit together</td></tr>
+          <tr><td class="time">14:05</td><td><strong>Conformance profiles</strong>, PR #12, ARCH-ADR-7</td></tr>
+          <tr><td class="time">14:25</td><td><strong>Options and conditional requirements</strong>, PR #2, ARCH-ADR-6</td></tr>
+          <tr><td class="time">14:45</td><td><strong>Removing the <code>observability</code> classifier</strong>, PR #13, ARCH-ADR-8</td></tr>
+          <tr><td class="time">14:55</td><td>Merge order, and next steps towards the Architecture Committee</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lede">Conformance profiles come first because ARCH-ADR-6 lets an option be met by claiming an extension, which ARCH-ADR-7 defines.</p>
+  </section>
+
+  <section aria-labelledby="changes">
+    <h2 id="changes">What will be discussed</h2>
+
+    <article class="pr">
+      <div class="pr-head">
+        <h3>1. Conformance profiles: remove `requirements/` folder; organize semantically.</h3>
+        <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/12">PR #12</a>
+      </div>
+      <p class="pr-meta">ARCH-ADR-7 · branch fix/conformance_profiles_folder_re-structuring</p>
+      <ul>
+        <li>A specification's functionalities are grouped into <strong>conformance profiles</strong>: one core, which every conformant software solution meets, and extenchannel-namesions a solution may claim on top of it.</li>
+        <li><code>requirements/</code> becomes <code>conformance-profiles/</code>, with one folder per profile, holding an <code>introduction.md</code> and a <code>functionalities/</code> folder. The folder name is the profile id.</li>
+        <li>Each profile is declared in the front matter of its <code>introduction.md</code>. <code>metadata.yml</code> no longer lists extensions, and functionality files no longer carry <code>conformance</code> or <code>extension</code>.</li>
+        <li>The Technical Overview gets shorter: one table of profiles, example conformance claims, and how profiles divide the capabilities. Functionalities, actors and interfaces move to each profile's introduction.</li>
+        <li>The Wallet worked example is removed and replaced with an abstract Building Block that every example now uses.</li>
+      </ul>
+      <p class="label">To settle</p>
+      <ul>
+        <li>One core plus extensions as profile types, instead of profiles with no special core</li>
+        <li>The folder name as a permanent id: renaming a profile folder is not allowed</li>
+        <li>The compiler change: <code>toc.yml</code> subsections under <code>conformance-profiles</code></li>
+      </ul>
+    </article>
+
+    <article class="pr">
+      <div class="pr-head">
+        <h3>2. Bringing back <code>optional</code> requirements and add conditionality</h3>
+        <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/2">PR #2</a>
+      </div>
+      <p class="pr-meta">ARCH-ADR-6 · branch feat/requirement_optionality</p>
+      <ul>
+        <li>A <strong>variation point</strong> is a requirement that a solution meets by meeting at least a given number of its options, such as "accepts at least one of these credential types". It cannot be skipped.</li>
+        <li>Options get a new level, <code>OPTION</code>, are listed beneath their variation point, and are numbered <code>n.m</code> (requirement 30 has options 30.1, 30.2…).</li>
+        <li><strong>Conditional requirements</strong> apply only when a solution meets a given option or claims a given extension, through <code>applies_when</code>, so tests and GovMarket report them as not applicable rather than failed.</li>
+        <li>An option can be met by claiming an extension, for choices that bring a whole protocol stack with them.</li>
+      </ul>
+      <p class="label">To settle</p>
+      <ul>
+        <li>The six questions at the end of the ADR: publishing an option as a minor change, options met by claiming an extension, numbering of options added later, requirements that relate two variation points, extensions that need an option, and whether <code>max</code> is needed</li>
+      </ul>
+      <p class="note">Overlap with PR #12: ARCH-ADR-6 still places extensions in <code>metadata.yml</code> and functionalities in <code>requirements/</code>. If PR #12 is accepted, ARCH-ADR-6 needs to follow its layout. We will agree the merge order.</p>
+    </article>
+
+    <article class="pr">
+      <div class="pr-head">
+        <h3>3. Removing the <code>observability</code> classifier</h3>
+        <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/13">PR #13</a>
+      </div>
+      <p class="pr-meta">ARCH-ADR-8 · branch feat/remove_observability_classifier</p>
+      <ul>
+        <li>Building Block specifications stop setting <code>observability</code>. How a requirement is verified follows from its <code>interaction</code>: <code>INTERNAL</code> is audited against evidence, and every other type is tested at its boundary.</li>
+        <li>In the Document Management draft, 146 of 150 requirements already follow this rule, and the other four are classification slips.</li>
+        <li>The cross-functional requirements keep <code>observability</code>, because they carry no <code>interaction</code>.</li>
+      </ul>
+      <p class="label">To settle</p>
+      <ul>
+        <li>The narrower meaning of <code>INTERNAL</code>: only what cannot be seen at any boundary</li>
+        <li>Whether the cross-functional requirements should adopt <code>interaction</code> later</li>
+        <li>Moving a requirement to or from <code>INTERNAL</code> as a minor release</li>
+      </ul>
+    </article>
+  </section>
+
+  <section aria-labelledby="join" class="join">
+    <h2 id="join">How to take part</h2>
+    <ul>
+      <li><strong>Join the meeting</strong> on Wednesday 25 November, 14:00–15:00 CET: <a href="https://us06web.zoom.us/j/87356264625?pwd=Tcy9FK0KxT18mhRxHbCPb4Nptl2XzF.1" target="_blank" rel="noopener noreferrer">Zoom Link</a></li>
+      <li><strong>Comment on the pull requests</strong>, before or after the meeting: <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/12">#12</a>, <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/2">#2</a>, <a href="https://github.com/GovStackWorkingGroup/specification-framework/pull/13">#13</a>. Each ADR is in the <code>ADR/</code> folder of its branch.</li>
+      <li><strong>Join the discussion on Slack</strong> in <a href="https://govstack.slack.com/archives/C04SZC0PADU" target="_blank" rel="noopener noreferrer">#architecture</a></li>
+    </ul>
+    <p class="lede">If you can only read one thing before the meeting, read the <em>Decision Outcome</em> section of each ADR.</p>
+  </section>
+</main>
+
+</body>
+</html>
